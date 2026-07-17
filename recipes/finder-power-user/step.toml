@@ -1,0 +1,15 @@
+# A sensible Finder preference set. Uses kitout's `defaults` step — no script, no
+# privilege. Finder is restarted only if a key actually changed.
+[[step]]
+type = "defaults"
+id = "finder-power-user"
+kill = ["Finder"]
+write = [
+  { domain = "NSGlobalDomain",   key = "AppleShowAllExtensions",  value = true },   # show every file extension
+  { domain = "com.apple.finder", key = "AppleShowAllFiles",       value = true },   # show hidden (dot) files
+  { domain = "com.apple.finder", key = "ShowPathbar",             value = true },   # path bar at the bottom
+  { domain = "com.apple.finder", key = "ShowStatusBar",           value = true },   # status bar
+  { domain = "com.apple.finder", key = "_FXSortFoldersFirst",     value = true },   # folders on top
+  { domain = "com.apple.finder", key = "FXDefaultSearchScope",    value = "SCcf" }, # search the current folder
+  { domain = "com.apple.finder", key = "_FXShowPosixPathInTitle", value = true },   # full path in the title bar
+]

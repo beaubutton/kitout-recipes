@@ -1,0 +1,8 @@
+# Enable Git LFS globally. Requires the `git-lfs` tool on PATH.
+# needs: if git-lfs isn't already installed, add needs = ["<your package step>"]
+#        (e.g. your brewfile step) so this runs after it.
+[[step]]
+type = "script"
+id = "git-lfs"
+path = "steps/git-lfs.sh"
+check = ["sh", "-c", "git config --global --get filter.lfs.clean >/dev/null 2>&1"]

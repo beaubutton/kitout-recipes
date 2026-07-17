@@ -1,0 +1,8 @@
+# Authenticate `sudo` with Touch ID (macOS 14+). Writes /etc/pam.d/sudo_local,
+# so it needs privilege — set `sudo = true` at the top of your manifest, which
+# gives the script kitout's Keychain-backed SUDO_ASKPASS.
+[[step]]
+type = "script"
+id = "touchid-sudo"
+path = "steps/touchid-sudo.sh"
+check = ["sh", "-c", "grep -q '^[^#]*pam_tid\\.so' /etc/pam.d/sudo_local 2>/dev/null"]

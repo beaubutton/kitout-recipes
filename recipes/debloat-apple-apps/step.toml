@@ -1,0 +1,15 @@
+# Remove Apple's bundled iLife apps. Add/remove entries to taste. Uses the `absent`
+# step (kitout >= 0.4.0). Each removal is probe-gated: it runs ONLY if that exact
+# app bundle exists, so a wrong/typo'd path simply never fires.
+# Set `sudo = true` in your manifest — removing from /Applications can need admin.
+[[step]]
+type = "absent"
+id = "remove-garageband"
+probe = "/Applications/GarageBand.app"
+remove = ["sudo", "-A", "rm", "-rf", "/Applications/GarageBand.app"]
+
+[[step]]
+type = "absent"
+id = "remove-imovie"
+probe = "/Applications/iMovie.app"
+remove = ["sudo", "-A", "rm", "-rf", "/Applications/iMovie.app"]

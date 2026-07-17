@@ -1,0 +1,16 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  recipes:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: brew install bats-core shellcheck beaubutton/tap/kitout
+      # CI runs the always-safe guarantees: every script lints, every recipe's
+      # step validates (parses + builds). The effect/idempotency assertions in
+      # each test are gated behind RECIPE_APPLY (they mutate the machine), so
+      # they're run by a maintainer in a VM, not on the shared runner.
+      - name: Shellcheck + validate
+        run: make check
