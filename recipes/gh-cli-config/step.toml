@@ -1,0 +1,10 @@
+# Set sane GitHub CLI (`gh`) defaults: editor, SSH git protocol, prompt mode,
+# and a `prs` alias. Requires `gh` on PATH — on-error is "warn" so a missing
+# gh doesn't abort the rest of your manifest.
+# needs: if gh isn't already installed, add needs = ["<your gh install step>"].
+[[step]]
+type = "script"
+id = "gh-cli-config"
+path = "steps/gh-cli-config.sh"
+on-error = "warn"
+check = ["sh", "-c", "command -v gh"]

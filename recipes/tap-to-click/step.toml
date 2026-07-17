@@ -1,0 +1,16 @@
+# Enable tap-to-click (no physical press needed). Uses kitout's `defaults`
+# step — no script, no privilege. Three keys across two hardware domains plus
+# NSGlobalDomain: the *driver* domains (AppleBluetoothMultitouch / Apple
+# MultitouchTrackpad) are what System Settings itself writes for built-in and
+# Bluetooth trackpads, while NSGlobalDomain's tapBehavior is a legacy
+# broad-compat mirror some apps still read. Write both so it sticks regardless
+# of trackpad type. See README caveat: tapBehavior sometimes only takes when
+# written `-currentHost`, which this step does not do.
+[[step]]
+type = "defaults"
+id = "tap-to-click"
+write = [
+  { domain = "com.apple.driver.AppleBluetoothMultitouch.trackpad", key = "Clicking", value = true }, # built-in + Bluetooth trackpad driver
+  { domain = "com.apple.AppleMultitouchTrackpad",                  key = "Clicking", value = true }, # built-in trackpad driver (older key, still read)
+  { domain = "NSGlobalDomain", key = "com.apple.mouse.tapBehavior", value = 1 },                      # legacy global mirror some apps read
+]

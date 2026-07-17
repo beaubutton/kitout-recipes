@@ -1,0 +1,21 @@
+# Seed proxy env-var placeholders (commented out) into ~/.zshrc, plus an
+# ACTIVE no_proxy/NO_PROXY export so local/loopback traffic never goes through
+# a proxy once you turn one on. Uncomment and fill in the http(s)/all_proxy
+# lines with a proxy URL you actually trust — see the README's Security
+# section before you do.
+[[step]]
+type = "block-in-file"
+id = "proxy-env"
+target = "~/.zshrc"
+marker = "recipes:proxy-env"
+block = '''
+# Uncomment and set these to point your shell at a proxy you trust:
+# export http_proxy="http://user:pass@proxy.example.com:8080"
+# export https_proxy="http://user:pass@proxy.example.com:8080"
+# export all_proxy="socks5://proxy.example.com:1080"
+# export HTTP_PROXY="$http_proxy"
+# export HTTPS_PROXY="$https_proxy"
+# export ALL_PROXY="$all_proxy"
+export no_proxy="localhost,127.0.0.1,::1,*.local"
+export NO_PROXY="$no_proxy"
+'''

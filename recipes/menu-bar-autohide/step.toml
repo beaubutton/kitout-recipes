@@ -1,0 +1,11 @@
+# Auto-hide the menu bar. Uses kitout's `defaults` step — no script, no
+# privilege. `_HIHideMenuBar` is the same switch as System Settings → Control
+# Center → "Automatically hide and show the menu bar" (the "in full screen only"
+# variant is a separate menu-bar-only setting not covered here). Takes effect
+# after the Dock/menu-bar process relaunches or you log out and back in.
+[[step]]
+type = "defaults"
+id = "menu-bar-autohide"
+write = [
+  { domain = "NSGlobalDomain", key = "_HIHideMenuBar", value = true }, # auto-hide the menu bar
+]

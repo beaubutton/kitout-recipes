@@ -1,0 +1,11 @@
+# Sign git commits/tags with a GPG key. EDIT KEYID at the top of the script to
+# your key's ID (`gpg --list-secret-keys --keyid-format long`) before adopting
+# — if it's left as the placeholder the script fails loudly with instructions,
+# so on-error is "warn" (don't block the rest of the manifest on it).
+# needs: if gpg isn't already installed, add needs = ["<your gpg/gnupg step>"].
+[[step]]
+type = "script"
+id = "commit-signing-gpg"
+path = "steps/commit-signing-gpg.sh"
+on-error = "warn"
+check = ["sh", "-c", '[ "$(git config --global --get commit.gpgsign 2>/dev/null)" = "true" ]']

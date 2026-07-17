@@ -1,0 +1,20 @@
+# Scaffold rclone's config-encryption password lookup and a couple of commented
+# convenience aliases into ~/.zshrc via a kitout-managed block. Does NOT write
+# rclone.conf and does NOT embed any remote name/token here beyond the example
+# alias text — your actual remote must already exist (via `rclone config`) and,
+# if you encrypt rclone.conf, its password must already be in the Keychain.
+# needs: requires the `rclone` binary on PATH — add
+# needs = ["<your package step>"] if it isn't already present (e.g. brew "rclone").
+[[step]]
+type = "block-in-file"
+id = "rclone-remote"
+target = "~/.zshrc"
+marker = "recipes:rclone-remote"
+block = '''
+# Only needed if rclone.conf is config-encrypted (`rclone config` > Set configuration password).
+export RCLONE_CONFIG_PASS="$(security find-generic-password -s rclone-config -w 2>/dev/null)"
+
+# Edit "remote" to match a remote name already set up via `rclone config`.
+# alias backup-push="rclone sync ~/Documents remote:documents --progress"
+# alias backup-pull="rclone sync remote:documents ~/Documents --progress"
+'''

@@ -1,0 +1,14 @@
+# Source cargo's own env file (~/.cargo/env) if present, via a kitout-managed
+# ~/.zshrc block. Only the region between the markers is managed — the rest of
+# your ~/.zshrc is yours. The `[ -f ... ]` guard means this is safe to apply
+# before Rust/cargo is installed — it just does nothing until ~/.cargo/env
+# exists. Pairs with the rustup recipe.
+# needs: install Rust via rustup first (see the rustup recipe) — this step only wires the shell.
+[[step]]
+type = "block-in-file"
+id = "cargo-env"
+target = "~/.zshrc"
+marker = "recipes:cargo-env"
+block = '''
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+'''

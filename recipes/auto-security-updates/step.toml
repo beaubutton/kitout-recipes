@@ -1,0 +1,10 @@
+# Enable automatic Apple SECURITY updates (not major OS upgrades). Needs sudo —
+# set sudo = true in your manifest, which gives the script kitout's
+# Keychain-backed SUDO_ASKPASS. The check reads the four AutomaticCheck/Download/
+# ConfigData/CriticalUpdate keys (root-owned domain, but `defaults read` works
+# unprivileged).
+[[step]]
+type = "script"
+id = "auto-security-updates"
+path = "steps/auto-security-updates.sh"
+check = ["sh", "-c", "defaults read /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled 2>/dev/null | grep -q '^1$' && defaults read /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload 2>/dev/null | grep -q '^1$' && defaults read /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall 2>/dev/null | grep -q '^1$' && defaults read /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall 2>/dev/null | grep -q '^1$'"]

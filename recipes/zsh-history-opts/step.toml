@@ -1,0 +1,15 @@
+# Big, shared, deduped zsh history in a kitout-managed ~/.zshrc block. Only the
+# region between the markers is managed — the rest of your ~/.zshrc is yours.
+# No external tool required; this is pure zsh config. See the README Security
+# note: history records everything you type, including any secrets typed inline.
+[[step]]
+type = "block-in-file"
+id = "zsh-history-opts"
+target = "~/.zshrc"
+marker = "recipes:zsh-history-opts"
+block = '''
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILE=$HOME/.zsh_history
+setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS INC_APPEND_HISTORY EXTENDED_HISTORY
+'''

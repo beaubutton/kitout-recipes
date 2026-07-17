@@ -1,0 +1,20 @@
+# Set the four Hot Corners (top-left, top-right, bottom-left, bottom-right).
+# Uses kitout's `defaults` step — no script, no privilege. Each corner is a pair
+# of `com.apple.dock` keys: `wvous-<corner>-corner` (which action, int) and
+# `wvous-<corner>-modifier` (a required modifier key, int; 0 = none).
+#
+# Ships only bottom-left = Lock Screen; the other three corners are left
+# untouched (delete or add lines below to taste). Action codes:
+#   0  none            2  Mission Control   3  App Windows   4  Desktop
+#   5  Screen Saver    6  Disable Screen Saver   10 Put Display to Sleep
+#   11 Launchpad       12 Notification Center   13 Lock Screen   14 Quick Note
+# Modifier codes (for wvous-*-modifier): 0 none · 131072 Shift · 262144 Control
+# · 524288 Option · 1048576 Command.
+[[step]]
+type = "defaults"
+id = "hot-corners"
+kill = ["Dock"]
+write = [
+  { domain = "com.apple.dock", key = "wvous-bl-corner",   value = 13 }, # bottom-left: Lock Screen
+  { domain = "com.apple.dock", key = "wvous-bl-modifier", value = 0 },  # no modifier required
+]

@@ -1,0 +1,13 @@
+# Turn on "Reduce Motion" (cuts Spaces-switch/zoom/parallax animation). Uses
+# kitout's `defaults` step — no script, no privilege. NOTE: the `defaults`
+# step type has no `on-error` field (writes are expected to just work), but on
+# a **managed/MDM Mac** this domain can be profile-restricted and the write may
+# silently fail to stick — if so, `check` will keep reporting pending; that's
+# the honest signal something outside your control blocked it. May need a
+# logout to fully apply everywhere.
+[[step]]
+type = "defaults"
+id = "reduce-motion"
+write = [
+  { domain = "com.apple.universalaccess", key = "reduceMotion", value = true }, # less animation on Spaces switches, app launches, etc.
+]

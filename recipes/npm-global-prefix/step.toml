@@ -1,0 +1,16 @@
+# Point npm's global install prefix at a user-owned directory via a
+# kitout-managed ~/.zshrc block, so `npm install -g` never needs sudo. Only the
+# region between the markers is managed — the rest of your ~/.zshrc is yours.
+# Requires the `npm` binary on PATH (ships with Node — brew "node", fnm, nvm,
+# volta, etc.). If you already have global npm packages installed under the
+# default system prefix, re-install them after adopting — see README.
+# needs: if npm isn't already installed, add needs = ["<your node/npm step>"].
+[[step]]
+type = "block-in-file"
+id = "npm-global-prefix"
+target = "~/.zshrc"
+marker = "recipes:npm-global-prefix"
+block = '''
+export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+export PATH="$HOME/.npm-global/bin:$PATH"
+'''

@@ -1,0 +1,11 @@
+# Disable the hold-a-key accent-character popover so holding a key REPEATS it
+# instead. Uses kitout's `defaults` step — no script, no privilege.
+# NSGlobalDomain is per-user; no `kill` — no daemon owns this key, apps read
+# it at launch. Complements the fast-keyboard recipe (repeat rate); this one
+# only disables the popover.
+[[step]]
+type = "defaults"
+id = "press-and-hold-off"
+write = [
+  { domain = "NSGlobalDomain", key = "ApplePressAndHoldEnabled", value = false }, # hold a key to repeat instead of the accent popover
+]

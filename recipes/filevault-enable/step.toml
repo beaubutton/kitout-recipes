@@ -1,0 +1,11 @@
+# Enable FileVault full-disk encryption. GUI/auth-gated: `fdesetup enable`
+# REQUIRES INTERACTIVE INPUT (your password, and it PRINTS A ONE-TIME RECOVERY
+# KEY you must save) — it cannot be scripted unattended, so on-error = "warn"
+# and you should run `kitout apply` for this step from an interactive terminal.
+# Needs sudo — set sudo = true in your manifest.
+[[step]]
+type = "script"
+id = "filevault-enable"
+path = "steps/filevault-enable.sh"
+on-error = "warn"
+check = ["sh", "-c", "fdesetup status | grep -q 'FileVault is On'"]

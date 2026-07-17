@@ -1,0 +1,10 @@
+# Disable "natural" scrolling — content moves the classic direction (scroll
+# down to move down the page). Uses kitout's `defaults` step — no script, no
+# privilege. Single NSGlobalDomain boolean; no `kill` needed (see README
+# caveat on when it takes effect).
+[[step]]
+type = "defaults"
+id = "natural-scroll-off"
+write = [
+  { domain = "NSGlobalDomain", key = "com.apple.swipescrolldirection", value = false }, # false = classic/non-natural scrolling
+]

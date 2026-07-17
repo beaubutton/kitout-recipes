@@ -1,0 +1,10 @@
+# Turn Stage Manager off. Uses kitout's `defaults` step — no script, no
+# privilege. `GloballyEnabled = false` is the same switch as the Control
+# Center / menu-bar Stage Manager toggle. Takes effect on the next toggle or
+# login, not necessarily the instant this runs.
+[[step]]
+type = "defaults"
+id = "stage-manager-off"
+write = [
+  { domain = "com.apple.WindowManager", key = "GloballyEnabled", value = false }, # Stage Manager off
+]

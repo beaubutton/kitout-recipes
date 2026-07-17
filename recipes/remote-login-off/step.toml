@@ -1,0 +1,19 @@
+# Ensure Remote Login (the SSH server / sshd) is OFF. GUI/auth-gated:
+# `systemsetup` needs sudo AND Full Disk Access for the terminal/agent running
+# it on recent macOS, and may prompt, so on-error = "warn". Needs sudo — set
+# sudo = true in your manifest. DO NOT adopt this if you rely on SSHing INTO
+# this machine — it disables inbound SSH.
+#
+# The check reads with `sudo -n`: unlike spctl/fdesetup, `systemsetup` requires
+# root even to READ, so an unprivileged probe can NEVER see "Off" and would
+# report pending forever. `sudo -n` reads non-interactively using kitout's
+# cached sudo timestamp during `apply` (sudo = true), so the step fast-exits and
+# is idempotent once converged. Standalone `plan`/`status` (which don't bootstrap
+# sudo) may still show it pending — that's the cost of a root-only-read setting,
+# and on-error = "warn" keeps it from failing the run.
+[[step]]
+type = "script"
+id = "remote-login-off"
+path = "steps/remote-login-off.sh"
+on-error = "warn"
+check = ["sh", "-c", "sudo -n systemsetup -getremotelogin 2>/dev/null | grep -qi 'Remote Login: Off'"]

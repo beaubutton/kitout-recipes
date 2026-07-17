@@ -1,0 +1,17 @@
+# Wire SDKMAN's init into zsh via a kitout-managed ~/.zshrc block. Only the
+# region between the markers is managed — the rest of your ~/.zshrc is yours.
+# This recipe does NOT install SDKMAN itself — SDKMAN installs via its own
+# `curl -s "https://get.sdkman.io" | bash` installer, which drops it at
+# ~/.sdkman (see README). The block below only sources sdkman-init.sh, and only
+# if it's actually present, so this step is harmless to apply before SDKMAN
+# exists — it just does nothing until you install it.
+# needs: run SDKMAN's own installer first (see README) — this step only wires the shell.
+[[step]]
+type = "block-in-file"
+id = "sdkman"
+target = "~/.zshrc"
+marker = "recipes:sdkman"
+block = '''
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+'''

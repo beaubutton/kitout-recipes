@@ -1,0 +1,18 @@
+# Wire VOLTA_HOME and PATH for Volta (a per-project JS tool-version pinner)
+# via a kitout-managed ~/.zshrc block. Only the region between the markers is
+# managed — the rest of your ~/.zshrc is yours. The PATH line only prepends
+# VOLTA_HOME/bin if it isn't already on PATH, so re-sourcing never duplicates
+# the entry. Requires the `volta` binary on PATH (brew install volta).
+# needs: if volta isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "block-in-file"
+id = "volta"
+target = "~/.zshrc"
+marker = "recipes:volta"
+block = '''
+export VOLTA_HOME="$HOME/.volta"
+case ":$PATH:" in
+  *":$VOLTA_HOME/bin:"*) ;;
+  *) export PATH="$VOLTA_HOME/bin:$PATH" ;;
+esac
+'''

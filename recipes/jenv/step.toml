@@ -1,0 +1,13 @@
+# Activate jenv (a Java version manager) in zsh via a kitout-managed ~/.zshrc
+# block. Only the region between the markers is managed — the rest of your
+# ~/.zshrc is yours. Requires the `jenv` binary on PATH (brew "jenv").
+# needs: if jenv isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "block-in-file"
+id = "jenv"
+target = "~/.zshrc"
+marker = "recipes:jenv"
+block = '''
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+'''

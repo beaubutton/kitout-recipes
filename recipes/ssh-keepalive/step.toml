@@ -1,0 +1,15 @@
+# Keep idle SSH sessions from dropping by appending a `Host *` block to the
+# END of ~/.ssh/config. ssh_config is first-match-wins, so a `Host *` block
+# MUST come after any more-specific Host blocks (block-in-file appends, which
+# is exactly what's needed here — don't move this block manually).
+[[step]]
+type = "block-in-file"
+id = "ssh-keepalive"
+target = "~/.ssh/config"
+marker = "recipes:ssh-keepalive"
+block = '''
+Host *
+  ServerAliveInterval 60
+  ServerAliveCountMax 3
+  TCPKeepAlive yes
+'''

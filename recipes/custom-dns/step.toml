@@ -1,0 +1,12 @@
+# Set DNS resolvers for a network service (e.g. "Wi-Fi", "Ethernet"). Edit
+# SERVICE/DNS in custom-dns.sh AND the matching values in the check below —
+# they must stay in sync. Needs sudo — set sudo = true in your manifest.
+# on-error = "warn" because the exact service name varies per Mac (run
+# `networksetup -listallnetworkservices` to find yours) and a mismatch
+# shouldn't fail the whole apply.
+[[step]]
+type = "script"
+id = "custom-dns"
+path = "steps/custom-dns.sh"
+on-error = "warn"
+check = ["sh", "-c", "[ \"$(networksetup -getdnsservers 'Wi-Fi' 2>/dev/null)\" = \"$(printf '1.1.1.1\\n1.0.0.1\\n')\" ]"]

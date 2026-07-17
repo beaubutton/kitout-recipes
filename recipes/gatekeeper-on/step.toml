@@ -1,0 +1,10 @@
+# Ensure Gatekeeper is ENABLED (the safe direction only — never disables it).
+# Needs sudo — set sudo = true in your manifest. Some recent macOS
+# configurations require enable/disable to happen from Recovery mode instead
+# of `spctl`, in which case this warns rather than failing the whole apply.
+[[step]]
+type = "script"
+id = "gatekeeper-on"
+path = "steps/gatekeeper-on.sh"
+on-error = "warn"
+check = ["sh", "-c", "spctl --status 2>/dev/null | grep -q 'assessments enabled'"]

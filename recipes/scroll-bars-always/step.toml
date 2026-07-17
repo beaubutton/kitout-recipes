@@ -1,0 +1,10 @@
+# Always show scroll bars (instead of "when scrolling" / "automatically
+# based on input device"). Uses kitout's `defaults` step — no script, no
+# privilege. Single NSGlobalDomain string value; no `kill` — apps pick this
+# up per-window, mostly on next launch.
+[[step]]
+type = "defaults"
+id = "scroll-bars-always"
+write = [
+  { domain = "NSGlobalDomain", key = "AppleShowScrollBars", value = "Always" }, # always show scroll bars (vs. "WhenScrolling" / "Automatic")
+]

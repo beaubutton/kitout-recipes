@@ -1,0 +1,16 @@
+# Scaffold restic env vars into ~/.zshrc via a kitout-managed block: the repo
+# location (placeholder — point it at your actual sftp/rest/s3/b2 target) and a
+# PASSWORD_COMMAND that fetches the repo password from Keychain at shell startup.
+# NEVER put a plaintext RESTIC_PASSWORD here. This step runs NO backups — it only
+# sets up the environment; you invoke `restic backup`/`restic snapshots` yourself.
+# needs: requires the `restic` binary on PATH — add needs = ["<your package step>"]
+# if it isn't already present (e.g. brew "restic").
+[[step]]
+type = "block-in-file"
+id = "restic-scaffold"
+target = "~/.zshrc"
+marker = "recipes:restic-scaffold"
+block = '''
+export RESTIC_REPOSITORY="sftp:user@host:/backups"
+export RESTIC_PASSWORD_COMMAND="security find-generic-password -s restic -w"
+'''
