@@ -1,0 +1,10 @@
+# Set your default image viewer, via `duti`. Requires: brew "duti".
+# Edit APP in the script AND the bundle id in the check below to your viewer
+# (e.g. com.apple.Preview, net.kyleerhabor.iina, com.flyingmeat.Acorn,
+# net.sourceforge.xnview.XnViewMP). Find an app's id with:
+#   osascript -e 'id of app "Preview"'
+[[step]]
+type = "script"
+id = "default-image-viewer"
+path = "steps/default-image-viewer.sh"
+check = ["sh", "-c", '[ "$(duti -d public.png 2>/dev/null)" = "com.apple.Preview" ]']

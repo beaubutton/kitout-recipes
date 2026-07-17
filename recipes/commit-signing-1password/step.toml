@@ -1,0 +1,12 @@
+# Sign git commits/tags with an SSH key held in 1Password (op-ssh-sign).
+# Needs the 1Password 8 app + its SSH agent enabled. EDIT SIGNING_KEY in the
+# script to your public key. on-error = "warn" so a box without 1Password (the
+# script exits non-zero there) warns instead of failing the whole apply.
+# needs: if a brew step installs the 1password cask, add needs = ["<that step>"].
+[[step]]
+type = "script"
+id = "commit-signing-1password"
+path = "steps/commit-signing-1password.sh"
+on-error = "warn"
+# Satisfied once git signs via op-ssh-sign and commit signing is on.
+check = ["sh", "-c", 'git config --global --get gpg.ssh.program 2>/dev/null | grep -q op-ssh-sign && [ "$(git config --global --get commit.gpgsign 2>/dev/null)" = "true" ]']

@@ -1,0 +1,16 @@
+# Enable git background maintenance (`git maintenance start`) for a repo. Git
+# maintenance is PER-REPO — this manages one. Default target is the current
+# directory. To maintain a SPECIFIC repo, make the `check` below and
+# git-maintenance.sh resolve to the SAME repo: either export REPO in the
+# environment kitout runs in (both read ${REPO:-$PWD}), or replace ${REPO:-$PWD}
+# with the same absolute path in BOTH. They are independent probes with no
+# shared variable, so if they disagree, plan/status will be wrong and the step
+# will re-run every apply.
+# No privilege. Installs a per-user launchd scheduler (no root, no sudo).
+[[step]]
+type = "script"
+id = "git-maintenance"
+path = "steps/git-maintenance.sh"
+# Satisfied once the repo's toplevel is registered in the global maintenance.repo
+# list. Must resolve to the SAME repo as git-maintenance.sh (see note above).
+check = ["sh", "-c", 'REPO="${REPO:-$PWD}"; top="$(git -C "$REPO" rev-parse --show-toplevel 2>/dev/null)" || exit 1; git config --global --get-all maintenance.repo 2>/dev/null | grep -qxF "$top"']

@@ -1,0 +1,8 @@
+# Install tfenv (Terraform version manager) into ~/.tfenv via git clone.
+# Requires `git`. No sudo — everything lands under your home directory.
+# needs: if git isn't present yet, add needs = ["<your package step>"].
+[[step]]
+type = "script"
+id = "tfenv"
+path = "steps/tfenv.sh"
+check = ["sh", "-c", "test -x \"${TFENV_ROOT:-$HOME/.tfenv}/bin/tfenv\""]

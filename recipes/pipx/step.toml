@@ -1,0 +1,13 @@
+# Ensure pipx's app bin dir (~/.local/bin) is on PATH via
+# `pipx ensurepath --all-shells` (--all-shells so ~/.zshrc is written even though
+# the script's bash parent would otherwise steer pipx to ~/.bashrc). See README.
+# Requires the `pipx` binary already on PATH (brew "pipx"). No privilege.
+# needs: add needs = ["<your pipx install step>"] so this runs after pipx is present.
+#
+# check: satisfied once ~/.local/bin is referenced in ~/.zshrc (read-only grep).
+# If you set PIPX_BIN_DIR (or ZDOTDIR), update the path in both the check and pipx.sh.
+[[step]]
+type = "script"
+id = "pipx-ensurepath"
+path = "steps/pipx.sh"
+check = ["sh", "-c", "grep -qF \"$HOME/.local/bin\" \"$HOME/.zshrc\" 2>/dev/null"]

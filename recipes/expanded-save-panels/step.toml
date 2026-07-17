@@ -1,0 +1,12 @@
+# Always-expanded Save and Print dialogs. Uses kitout's `defaults` step — no
+# script, no privilege. NSGlobalDomain applies to every app that uses the standard
+# AppKit panels; effect is per-panel-open, so no `kill` is needed.
+[[step]]
+type = "defaults"
+id = "expanded-save-panels"
+write = [
+  { domain = "NSGlobalDomain", key = "NSNavPanelExpandedStateForSaveMode",  value = true }, # Save dialog expanded by default
+  { domain = "NSGlobalDomain", key = "NSNavPanelExpandedStateForSaveMode2", value = true }, # newer variant of the same key
+  { domain = "NSGlobalDomain", key = "PMPrintingExpandedStateForPrint",     value = true }, # Print dialog expanded by default
+  { domain = "NSGlobalDomain", key = "PMPrintingExpandedStateForPrint2",    value = true }, # newer variant of the same key
+]

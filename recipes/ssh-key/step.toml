@@ -1,0 +1,9 @@
+# Generate a personal ed25519 SSH key (if absent) and load it into the agent +
+# login Keychain. INTERACTIVE on first run: ssh-keygen asks you to choose a
+# passphrase — this recipe deliberately does not automate that away.
+# The check probes for the private key, so once it exists `plan` is satisfied.
+[[step]]
+type = "script"
+id = "ssh-key"
+path = "steps/ssh-key.sh"
+check = ["sh", "-c", "test -f \"$HOME/.ssh/id_ed25519\""]

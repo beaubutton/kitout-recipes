@@ -1,0 +1,10 @@
+# Set the default handler for .zip archives, via `duti`. Requires: brew "duti".
+# Edit APP in the script AND the bundle id in the check below to your extractor
+# (e.g. com.apple.archiveutility, com.aone.keka, cx.c3.theunarchiver). Find an
+# app's id with:
+#   osascript -e 'id of app "Keka"'
+[[step]]
+type = "script"
+id = "default-archive"
+path = "steps/default-archive.sh"
+check = ["sh", "-c", '[ "$(duti -d public.zip-archive 2>/dev/null)" = "com.aone.keka" ]']

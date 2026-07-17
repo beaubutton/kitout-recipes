@@ -1,0 +1,12 @@
+# Remap Caps Lock -> Control via hidutil, persisted across reboots by a per-user
+# LaunchAgent. No sudo — hidutil user-key remapping and ~/Library/LaunchAgents are
+# user-scoped. The check verifies both: the LaunchAgent plist exists AND the remap
+# is currently active. NOTE: `hidutil --get` prints usage codes in DECIMAL, not the
+# hex used by `--set`; Caps Lock 0x700000039 = 30064771129 (src), Left Control
+# 0x7000000E0 = 30064771296 (dst). The check greps for both so it matches the real
+# Caps->Control entry and stays idempotent.
+[[step]]
+type = "script"
+id = "caps-to-control"
+path = "steps/caps-to-control.sh"
+check = ["sh", "-c", "test -f \"$HOME/Library/LaunchAgents/com.kitout.caps-to-control.plist\" && m=$(hidutil property --get 'UserKeyMapping' 2>/dev/null) && printf '%s' \"$m\" | grep -q 30064771129 && printf '%s' \"$m\" | grep -q 30064771296"]

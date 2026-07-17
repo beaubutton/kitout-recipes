@@ -1,0 +1,13 @@
+# Activate fnm (Fast Node Manager) in interactive zsh via a kitout-managed block in
+# ~/.zshrc. Only the region between the markers is managed. --use-on-cd switches the
+# Node version automatically when you cd into a dir with a .node-version/.nvmrc.
+# Requires the `fnm` binary: brew "fnm". Point `needs` at your package step.
+# needs: add needs = ["<your fnm install step>"] so this runs after fnm is on PATH.
+[[step]]
+type = "block-in-file"
+id = "fnm-env"
+target = "~/.zshrc"
+marker = "recipes:fnm"
+block = '''
+eval "$(fnm env --use-on-cd)"
+'''

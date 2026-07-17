@@ -1,0 +1,14 @@
+# Turn off macOS "smart" text substitutions: curly quotes, em-dash, auto-capitalize,
+# auto-correct, and the double-space-to-period. Uses kitout's `defaults` step — no
+# script, no privilege. NSGlobalDomain applies to apps that honor the system text
+# engine; effect is per-app-launch, so no `kill` is needed.
+[[step]]
+type = "defaults"
+id = "disable-autocorrect"
+write = [
+  { domain = "NSGlobalDomain", key = "NSAutomaticQuoteSubstitutionEnabled",     value = false }, # no curly "smart" quotes
+  { domain = "NSGlobalDomain", key = "NSAutomaticDashSubstitutionEnabled",      value = false }, # no -- → em-dash
+  { domain = "NSGlobalDomain", key = "NSAutomaticCapitalizationEnabled",        value = false }, # no auto-capitalize
+  { domain = "NSGlobalDomain", key = "NSAutomaticSpellingCorrectionEnabled",    value = false }, # no autocorrect
+  { domain = "NSGlobalDomain", key = "NSAutomaticPeriodSubstitutionEnabled",    value = false }, # no double-space → ". "
+]

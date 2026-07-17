@@ -1,0 +1,8 @@
+# Silence the boot/startup chime via the NVRAM StartupMute variable. Needs sudo to
+# WRITE nvram — set sudo = true in your manifest (kitout provides SUDO_ASKPASS).
+# Reading nvram is unprivileged. The check passes when StartupMute is set to %01.
+[[step]]
+type = "script"
+id = "disable-startup-chime"
+path = "steps/disable-startup-chime.sh"
+check = ["sh", "-c", "nvram StartupMute 2>/dev/null | grep -q '%01'"]

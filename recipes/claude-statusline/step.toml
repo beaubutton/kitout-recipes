@@ -1,0 +1,13 @@
+# Seed a Claude Code statusLine in ~/.claude/settings.json via json-merge.
+# mode = "seed": writes the statusLine key ONLY if it's absent, so it never
+# clobbers a statusLine you've already set. The command below is a self-contained
+# one-liner that reads Claude's session JSON on stdin and prints "[Model] NN%
+# context · dir" — no separate script file, jq is the only dependency.
+#
+# needs: jq must be on PATH — add needs = ["<your jq package step>"] (brew "jq").
+[[step]]
+type = "json-merge"
+id = "claude-statusline"
+target = "~/.claude/settings.json"
+mode = "seed"
+value = { statusLine = { type = "command", command = "jq -r '\"[\\(.model.display_name // \"?\")] \\(.context_window.used_percentage // 0 | floor)% ctx · \\((.workspace.current_dir // \"\") | split(\"/\") | last // \"\")\"'", padding = 0 } }

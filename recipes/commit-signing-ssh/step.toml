@@ -1,0 +1,8 @@
+# Sign git commits/tags with an SSH key (git 2.34+). No privilege; needs an
+# existing SSH key. EDIT SIGNING_KEY and SIGNER_EMAIL at the top of the script.
+[[step]]
+type = "script"
+id = "commit-signing-ssh"
+path = "steps/commit-signing-ssh.sh"
+# Satisfied once git is set to SSH-format signing with commit signing enabled.
+check = ["sh", "-c", '[ "$(git config --global --get gpg.format 2>/dev/null)" = "ssh" ] && [ "$(git config --global --get commit.gpgsign 2>/dev/null)" = "true" ]']

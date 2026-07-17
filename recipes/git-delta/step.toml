@@ -1,0 +1,10 @@
+# Use delta as git's pager + diff/merge renderer. Requires the `delta` binary
+# on PATH (brew formula: git-delta).
+# needs: if a brew step installs git-delta, add needs = ["<that step>"] so this
+#        runs after it.
+[[step]]
+type = "script"
+id = "git-delta"
+path = "steps/git-delta.sh"
+# Satisfied once git's pager is delta.
+check = ["sh", "-c", '[ "$(git config --global --get core.pager 2>/dev/null)" = "delta" ]']

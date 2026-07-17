@@ -1,0 +1,12 @@
+# Activate mise (the polyglot runtime version manager) in interactive zsh via a
+# kitout-managed block in ~/.zshrc. Only the region between the markers is managed.
+# Requires the `mise` binary: brew "mise". Point `needs` at your package step.
+# needs: add needs = ["<your mise install step>"] so this runs after mise is on PATH.
+[[step]]
+type = "block-in-file"
+id = "mise-activate"
+target = "~/.zshrc"
+marker = "recipes:mise"
+block = '''
+eval "$(mise activate zsh)"
+'''

@@ -1,0 +1,10 @@
+# Accessibility: reduce transparency (opaque menu bar, Dock, sidebars, sheets).
+# Uses kitout's `defaults` step — no script, no privilege. Same as System Settings
+# > Accessibility > Display > Reduce transparency. Fully settles after a log out /
+# log in (no app to restart cleanly re-renders the compositor).
+[[step]]
+type = "defaults"
+id = "reduce-transparency"
+write = [
+  { domain = "com.apple.universalaccess", key = "reduceTransparency", value = true }, # opaque UI chrome
+]

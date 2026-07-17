@@ -1,0 +1,14 @@
+# Install a curated global gitignore and point core.excludesfile at it.
+# No privilege, no deps beyond git. Edit the heredoc in the script to taste.
+[[step]]
+type = "script"
+id = "gitignore-global"
+path = "steps/gitignore-global.sh"
+# No `check` probe: convergence depends on the file's CONTENT matching the
+# curated body (which lives in the script), and a cheap probe can't compare that
+# without duplicating the body and drifting. A content-blind probe (config set +
+# file exists) would report satisfied even after you edit the heredoc, so kitout
+# would skip the script and never converge. Instead the script owns its own
+# idempotency: it does the exact content compare and is a true no-op when
+# already converged. `plan`/`status` therefore always list this step; `apply`
+# runs the script, which rewrites only when the content differs.

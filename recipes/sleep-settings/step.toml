@@ -1,0 +1,9 @@
+# Set display/disk sleep timers and disable Power Nap via pmset. Needs sudo — set
+# sudo = true in your manifest (kitout provides the Keychain-backed SUDO_ASKPASS).
+# Edit the values in the script AND in this check to match. Values are minutes;
+# 0 = never. The check reads `pmset -g custom` (per-source config, unprivileged).
+[[step]]
+type = "script"
+id = "sleep-settings"
+path = "steps/sleep-settings.sh"
+check = ["sh", "-c", "pmset -g custom 2>/dev/null | awk '$1==\"displaysleep\"{d=$2} $1==\"disksleep\"{k=$2} $1==\"powernap\"{p=$2} END{exit !(d==10 && k==10 && p==0)}'"]

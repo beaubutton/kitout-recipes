@@ -1,0 +1,26 @@
+# Scaffold a named AWS profile in ~/.aws/config — NO secrets, just non-sensitive
+# settings (region, output, and optional SSO wiring). Managed as a marked block, so
+# the rest of ~/.aws/config (including any [default] and other profiles) is left
+# alone. AWS's INI parser treats the `#` marker lines as comments.
+#
+# Edit the profile name in the [profile ...] header and the values below to taste.
+# Credentials NEVER go here — use `aws sso login` or ~/.aws/credentials.
+[[step]]
+type = "block-in-file"
+id = "aws-profile"
+target = "~/.aws/config"
+marker = "recipes:aws-profile"
+block = '''
+[profile dev]
+region = us-east-1
+output = json
+# --- SSO (uncomment and fill in for IAM Identity Center; still no secrets) ---
+# sso_session = my-sso
+# sso_account_id = 123456789012
+# sso_role_name = PowerUserAccess
+#
+# [sso-session my-sso]
+# sso_start_url = https://my-org.awsapps.com/start
+# sso_region = us-east-1
+# sso_registration_scopes = sso:account:access
+'''

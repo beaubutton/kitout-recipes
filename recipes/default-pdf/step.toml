@@ -1,0 +1,10 @@
+# Set your default PDF viewer, via `duti`. Requires: brew "duti".
+# Edit APP in the script AND the bundle id in the check below to your viewer
+# (e.g. com.apple.Preview, com.google.Chrome, org.mozilla.firefox,
+# net.sourceforge.skim-app.skim). Find an app's id with:
+#   osascript -e 'id of app "Preview"'
+[[step]]
+type = "script"
+id = "default-pdf"
+path = "steps/default-pdf.sh"
+check = ["sh", "-c", '[ "$(duti -d com.adobe.pdf 2>/dev/null)" = "com.apple.Preview" ]']

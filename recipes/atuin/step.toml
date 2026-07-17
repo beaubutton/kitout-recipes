@@ -1,0 +1,13 @@
+# Initialize Atuin (SQLite-backed shell history with search) in zsh via a
+# kitout-managed ~/.zshrc block. Only the region between the markers is managed.
+# Requires the `atuin` binary on PATH (brew "atuin"). See the README: Atuin rebinds
+# Ctrl-R and the Up arrow by default — pass flags in the block to opt out.
+# needs: if atuin isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "block-in-file"
+id = "atuin"
+target = "~/.zshrc"
+marker = "recipes:atuin"
+block = '''
+eval "$(atuin init zsh)"
+'''
