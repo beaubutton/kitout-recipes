@@ -1,0 +1,11 @@
+# Fastest key-repeat + disable press-and-hold. Uses kitout's `defaults` step —
+# no script, no privilege. NSGlobalDomain is per-user; changes take full effect
+# after a logout/login (see README caveats). No `kill` — no daemon owns these.
+[[step]]
+type = "defaults"
+id = "fast-keyboard"
+write = [
+  { domain = "NSGlobalDomain", key = "KeyRepeat",               value = 1 },     # repeat interval — 1 is faster than the UI's minimum (2 = 30ms)
+  { domain = "NSGlobalDomain", key = "InitialKeyRepeat",        value = 10 },    # delay until repeat — 10 = 150ms (UI minimum is 15 = 225ms)
+  { domain = "NSGlobalDomain", key = "ApplePressAndHoldEnabled", value = false }, # hold a key to repeat instead of the accent popover
+]

@@ -1,0 +1,10 @@
+# Open text and source-code files in your editor by default, via `duti`.
+# Requires: brew "duti". Edit APP in the script AND both bundle ids in the check
+# below to your editor (e.g. com.microsoft.VSCode, com.sublimetext.4,
+# dev.zed.Zed, com.apple.TextEdit). Find an app's id with:
+#   osascript -e 'id of app "Visual Studio Code"'
+[[step]]
+type = "script"
+id = "default-editor"
+path = "steps/default-editor.sh"
+check = ["sh", "-c", '[ "$(duti -d public.plain-text 2>/dev/null)" = "com.microsoft.VSCode" ] && [ "$(duti -d public.source-code 2>/dev/null)" = "com.microsoft.VSCode" ]']

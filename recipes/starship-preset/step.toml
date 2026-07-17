@@ -1,0 +1,10 @@
+# Write a Starship preset to ~/.config/starship.toml. Requires the `starship`
+# binary on PATH (brew "starship"). Set the preset name in the script (STARSHIP_PRESET).
+# The check is satisfied once the config file exists, so an existing hand-tuned
+# starship.toml is NEVER overwritten.
+# needs: if starship isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "script"
+id = "starship-preset"
+path = "steps/starship-preset.sh"
+check = ["sh", "-c", "[ -f \"${XDG_CONFIG_HOME:-$HOME/.config}/starship.toml\" ]"]

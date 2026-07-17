@@ -1,0 +1,11 @@
+# Add a github.com Host block to ~/.ssh/config and pin GitHub's ed25519 host key in
+# ~/.ssh/known_hosts. The host key is hardcoded from GitHub's published list and the
+# script re-verifies its SHA256 fingerprint before writing it.
+# The check is satisfied only when BOTH the config marker and the pinned key exist.
+# needs: pairs well with the `ssh-key` recipe — add needs = ["ssh-key"] so the key
+#        the Host block's IdentityFile references exists first.
+[[step]]
+type = "script"
+id = "ssh-config-github"
+path = "steps/ssh-config-github.sh"
+check = ["sh", "-c", "grep -qF '# >>> recipes:github >>>' \"$HOME/.ssh/config\" 2>/dev/null && grep -qF 'AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' \"$HOME/.ssh/known_hosts\" 2>/dev/null"]

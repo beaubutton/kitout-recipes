@@ -1,0 +1,13 @@
+# Set your default mailto: client, via `duti`. Requires: brew "duti".
+# Edit APP in the script AND the bundle id in the check below to your mail app
+# (e.g. com.apple.mail, com.microsoft.Outlook, com.readdle.smartemail-Mac,
+# com.superhuman.electron). Find an app's id with:
+#   osascript -e 'id of app "Mail"'
+# GUI-gated: macOS shows a consent dialog for the mailto: default that no tool
+# can bypass, so this is on-error = warn.
+[[step]]
+type = "script"
+id = "default-mail"
+path = "steps/default-mail.sh"
+check = ["sh", "-c", '[ "$(duti -d mailto 2>/dev/null)" = "com.apple.mail" ]']
+on-error = "warn"

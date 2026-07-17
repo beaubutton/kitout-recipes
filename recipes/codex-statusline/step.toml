@@ -1,0 +1,14 @@
+# Seed the Codex CLI TUI status line in ~/.codex/config.toml via toml-merge.
+# mode = "seed": writes tui.status_line ONLY if it's absent, so it never clobbers
+# a status line you've already configured. The value is an ordered array of item
+# identifiers Codex renders left-to-right in the footer.
+#
+# Valid items: "model", "approval", "context_usage", "session_id", "sandbox",
+# "cwd", "spinner". Reorder / trim to taste. (`/statusline` in Codex is the
+# interactive equivalent; set status_line = null there to hide the bar.)
+[[step]]
+type = "toml-merge"
+id = "codex-statusline"
+target = "~/.codex/config.toml"
+mode = "seed"
+value = { tui = { status_line = ["model", "approval", "context_usage", "cwd"] } }

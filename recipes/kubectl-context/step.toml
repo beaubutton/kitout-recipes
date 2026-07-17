@@ -1,0 +1,10 @@
+# Set your default kubectl context to a named context that already exists in your
+# kubeconfig. Purely a local kubeconfig edit — never contacts a cluster.
+# Change "docker-desktop" below to the context you want as default (see
+# `kubectl config get-contexts`). Requires the `kubectl` CLI on PATH.
+# needs: if kubectl isn't installed yet, add needs = ["<your package step>"].
+[[step]]
+type = "script"
+id = "kubectl-context"
+path = "steps/kubectl-context.sh"
+check = ["sh", "-c", "[ \"$(kubectl config current-context 2>/dev/null)\" = \"docker-desktop\" ]"]

@@ -1,0 +1,10 @@
+# Add/remove specific Dock apps via dockutil. Requires: brew "dockutil".
+# Edit the ADD and REMOVE lists in the script to taste. The check passes only when
+# every ADD app is in the Dock and no REMOVE app is — mirror your lists here if you
+# want a tighter probe; the default check greps dockutil's --list.
+# needs: if dockutil isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "script"
+id = "dock-items"
+path = "steps/dock-items.sh"
+check = ["sh", "-c", "L=$(dockutil --list 2>/dev/null | cut -f1); printf '%s\\n' \"$L\" | grep -qxF 'Visual Studio Code' && ! printf '%s\\n' \"$L\" | grep -qxF 'Music'"]

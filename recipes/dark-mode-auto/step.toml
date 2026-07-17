@@ -1,0 +1,16 @@
+# Set the system appearance to Auto (follows sunrise/sunset). Uses a script,
+# because "Auto" means DELETING AppleInterfaceStyle *and* writing
+# AppleInterfaceStyleSwitchesAutomatically = 1 — kitout's `defaults` step only
+# writes, it can't delete a key. For the fixed dark/light modes the script also
+# nudges the live UI via osascript, which is Automation-consent-gated, so
+# on-error = "warn" (auto mode sends no osascript).
+#
+# To force plain Dark (never auto) instead, set MODE=dark in the script.
+[[step]]
+type = "script"
+id = "dark-mode-auto"
+path = "steps/dark-mode-auto.sh"
+on-error = "warn"
+# Satisfied when Auto is on. (For MODE=dark, change this probe to:
+#   defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q Dark )
+check = ["sh", "-c", "[ \"$(defaults read -g AppleInterfaceStyleSwitchesAutomatically 2>/dev/null)\" = 1 ]"]

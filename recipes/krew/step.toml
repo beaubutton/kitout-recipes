@@ -1,0 +1,9 @@
+# Install krew, the kubectl plugin manager, into ~/.krew.
+# Requires `kubectl`, plus `curl` and `tar` (stock macOS; kubectl is not).
+# No sudo — everything lands under your home directory.
+# needs: if kubectl isn't installed yet, add needs = ["<your package step>"].
+[[step]]
+type = "script"
+id = "krew"
+path = "steps/krew.sh"
+check = ["sh", "-c", "test -x \"${KREW_ROOT:-$HOME/.krew}/bin/kubectl-krew\""]

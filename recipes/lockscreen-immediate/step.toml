@@ -1,0 +1,11 @@
+# Require the login password IMMEDIATELY when the screen locks, via
+# `sysadminctl -screenLock immediate`. This PROMPTS for your login password on
+# first apply (sysadminctl authenticates the user; it is not a sudo step), so it's
+# GUI/auth-gated: `on-error = "warn"` keeps a skipped/declined prompt from failing
+# the whole run. The check reads `sysadminctl -screenLock status` (read-only).
+[[step]]
+type = "script"
+id = "lockscreen-immediate"
+path = "steps/lockscreen-immediate.sh"
+on-error = "warn"
+check = ["sh", "-c", "sysadminctl -screenLock status 2>&1 | grep -Eqi 'immediate|delay is 0([^0-9]|$)'"]

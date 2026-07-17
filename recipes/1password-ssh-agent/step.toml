@@ -1,0 +1,15 @@
+# Point SSH at the 1Password SSH agent by managing a marked block in ~/.ssh/config.
+# Only the region between the markers is managed; the rest of your ~/.ssh/config is
+# yours. `comment-prefix = "#"` matches ssh_config's comment syntax.
+# The socket path below is 1Password's default on macOS — verify it in
+# 1Password → Settings → Developer → "Use the SSH agent" if yours differs.
+[[step]]
+type = "block-in-file"
+id = "1password-ssh-agent"
+target = "~/.ssh/config"
+marker = "recipes:1password-agent"
+comment-prefix = "#"
+block = '''
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+'''

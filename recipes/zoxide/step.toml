@@ -1,0 +1,12 @@
+# Initialize zoxide (a smarter `cd`) in zsh via a kitout-managed ~/.zshrc block.
+# Only the region between the markers is managed — the rest of your ~/.zshrc is
+# yours. Requires the `zoxide` binary on PATH (brew "zoxide").
+# needs: if zoxide isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "block-in-file"
+id = "zoxide"
+target = "~/.zshrc"
+marker = "recipes:zoxide"
+block = '''
+eval "$(zoxide init zsh)"
+'''

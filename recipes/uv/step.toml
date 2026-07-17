@@ -1,0 +1,9 @@
+# Install uv — Astral's fast Python package + project + Python-version manager —
+# if it's missing. `command-if-missing` probes `uv` on PATH and, only when absent,
+# runs the installer argv (spawned directly, no shell). Swap the installer if you
+# prefer a pinned version or a non-Homebrew source.
+[[step]]
+type = "command-if-missing"
+id = "uv"
+probe = "uv"
+install = ["brew", "install", "uv"]

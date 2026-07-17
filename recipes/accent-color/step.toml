@@ -1,0 +1,16 @@
+# Set the macOS accent + highlight color. Uses kitout's `defaults` step — no
+# script, no privilege. Ships Blue; change the two values together (see README
+# for the full color map). `AppleAccentColor` picks the accent, `AppleHighlightColor`
+# matches the text-selection highlight, `AppleAquaColorVariant` = 1 for any colored
+# accent (6 for Graphite). Fully takes effect after a log out / log in.
+[[step]]
+type = "defaults"
+id = "accent-color"
+write = [
+  # Blue = 4. Red 0 · Orange 1 · Yellow 2 · Green 3 · Blue 4 · Purple 5 · Pink 6 · Graphite -1
+  { domain = "NSGlobalDomain", key = "AppleAccentColor",      value = 4 },
+  # 1 = colored accent (use 6 only when AppleAccentColor = -1 / Graphite).
+  { domain = "NSGlobalDomain", key = "AppleAquaColorVariant", value = 1 },
+  # Text-selection highlight, matched to Blue. Format: "R G B ColorName".
+  { domain = "NSGlobalDomain", key = "AppleHighlightColor",   value = "0.698039 0.843137 1.000000 Blue" },
+]

@@ -1,0 +1,9 @@
+# Wire up fzf key bindings (Ctrl-R, Ctrl-T, Alt-C) and zsh completion by sourcing
+# fzf's shell integration from a managed block in ~/.zshrc. Requires the `fzf`
+# binary on PATH (brew "fzf"). Idempotent: the check greps for the managed marker.
+# needs: if fzf isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "script"
+id = "fzf-setup"
+path = "steps/fzf-setup.sh"
+check = ["sh", "-c", "grep -q 'kitout:fzf' \"$HOME/.zshrc\" 2>/dev/null"]

@@ -1,0 +1,13 @@
+# Initialize rbenv (Ruby version manager) in interactive zsh via a kitout-managed
+# block in ~/.zshrc. Only the region between the markers is managed. `rbenv init -`
+# sets up shims + the version-switch shell hook.
+# Requires the `rbenv` binary: brew "rbenv" (pulls in ruby-build). Point `needs` at it.
+# needs: add needs = ["<your rbenv install step>"] so this runs after rbenv is on PATH.
+[[step]]
+type = "block-in-file"
+id = "rbenv-init"
+target = "~/.zshrc"
+marker = "recipes:rbenv"
+block = '''
+eval "$(rbenv init - zsh)"
+'''

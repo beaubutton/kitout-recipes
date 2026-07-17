@@ -1,0 +1,9 @@
+# Enable the built-in application firewall + stealth mode. Needs sudo — set
+# sudo = true in your manifest, which gives the script kitout's Keychain-backed
+# SUDO_ASKPASS. The check reads the firewall state (root-owned tool, but
+# --getglobalstate works unprivileged).
+[[step]]
+type = "script"
+id = "app-firewall"
+path = "steps/app-firewall.sh"
+check = ["sh", "-c", "/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate 2>/dev/null | grep -q 'State = 1' && /usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode 2>/dev/null | grep -q 'mode is on'"]

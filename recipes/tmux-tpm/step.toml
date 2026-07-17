@@ -1,0 +1,10 @@
+# Install the Tmux Plugin Manager (TPM) into ~/.tmux/plugins/tpm by cloning its
+# repo. No privilege. The check probes for the clone, so plan/status are honest and
+# the clone never re-runs. You still add `run '~/.tmux/plugins/tpm/tpm'` to your
+# ~/.tmux.conf and press prefix + I to install plugins — see the README.
+# needs: if git isn't already present, add needs = ["<your git/CLT step>"].
+[[step]]
+type = "script"
+id = "tmux-tpm"
+path = "steps/tmux-tpm.sh"
+check = ["sh", "-c", "[ -f \"$HOME/.tmux/plugins/tpm/tpm\" ]"]

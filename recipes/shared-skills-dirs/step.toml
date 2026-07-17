@@ -1,0 +1,12 @@
+# Create a shared home for agent "skills" (~/.agents/skills) and symlink each
+# agent's skills dir at it, so a skill dropped once is seen by every agent.
+# No privilege, no network — just dirs and symlinks in your home.
+#
+# The `check` is satisfied once the neutral dir exists and every managed link is
+# in place (a symlink to it, or a pre-existing real dir the script leaves alone).
+# Edit the `links` array in the script to match the agents you run.
+[[step]]
+type = "script"
+id = "shared-skills-dirs"
+path = "steps/shared-skills-dirs.sh"
+check = ["sh", "-c", "d=\"$HOME/.agents/skills\"; [ -d \"$d\" ] || exit 1; for l in \"$HOME/.claude/skills\" \"$HOME/.codex/skills\"; do if [ -L \"$l\" ]; then [ \"$(readlink \"$l\")\" = \"$d\" ] || exit 1; else [ -e \"$l\" ] || exit 1; fi; done"]

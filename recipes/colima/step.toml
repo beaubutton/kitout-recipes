@@ -1,0 +1,10 @@
+# Start Colima as a local Docker runtime (a Docker Desktop alternative).
+# Requires the `colima` and `docker` CLIs on PATH.
+# needs: if colima/docker aren't installed yet, add
+#        needs = ["<your package step>"] (e.g. brew "colima" "docker") so this
+#        runs after them.
+[[step]]
+type = "script"
+id = "colima"
+path = "steps/colima.sh"
+check = ["sh", "-c", "colima status >/dev/null 2>&1"]

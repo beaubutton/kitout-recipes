@@ -1,0 +1,23 @@
+# Seed a GLOBAL AGENTS.md — house rules every coding agent reads, in one place.
+# Uses block-in-file so only the marked region is managed: kitout rewrites the
+# block, and anything you add outside the markers stays yours. No privilege, no
+# network. Edit `target` to ~/.claude/CLAUDE.md (or another agent's file) and the
+# `block` body to taste.
+#
+# The marker lines render as Markdown H1 headings (comment-prefix is "#"); agents
+# read the raw text, so this is cosmetic — see the README Caveats.
+[[step]]
+type = "block-in-file"
+id = "agents-md-global"
+target = "~/.config/AGENTS.md"
+marker = "agents:global"
+block = '''
+## Global house rules (managed by kitout)
+
+- Prefer the smallest change that solves the task; do not add abstraction I did
+  not ask for.
+- Read before you write: inspect existing code/conventions before proposing edits.
+- Never run destructive commands (rm -rf, force-push, DB drops) without asking.
+- Keep secrets out of the repo, logs, and prompts.
+- When unsure, ask one crisp question instead of guessing.
+'''

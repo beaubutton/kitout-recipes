@@ -1,0 +1,13 @@
+# Force a 24-hour menu-bar (and system-wide) clock. Uses kitout's `defaults` step
+# — no script, no privilege. `AppleICUForce24HourTime` is the reliable, current
+# key: it lives in NSGlobalDomain and drives 24h formatting everywhere, unlike the
+# old `com.apple.menuextra.clock DateFormat`, which modern macOS sandboxes under
+# ControlCenter (writes there often don't stick or read back). The menu clock is
+# restarted so the change shows immediately.
+[[step]]
+type = "defaults"
+id = "menu-clock"
+kill = ["SystemUIServer", "ControlCenter"]
+write = [
+  { domain = "NSGlobalDomain", key = "AppleICUForce24HourTime", value = true }, # 24-hour time everywhere, incl. the menu-bar clock
+]

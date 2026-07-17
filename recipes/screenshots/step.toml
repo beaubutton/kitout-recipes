@@ -1,0 +1,9 @@
+# Save screenshots to ~/Screenshots as shadowless PNGs. A `script` recipe (not
+# plain `defaults`) because it must first `mkdir -p ~/Screenshots` — `defaults`
+# can't create the target dir, and the `location` key needs an absolute path
+# (macOS `defaults` does not expand `~`). No privilege. Idempotent.
+[[step]]
+type = "script"
+id = "screenshots"
+path = "steps/screenshots.sh"
+check = ["sh", "-c", "[ \"$(defaults read com.apple.screencapture location 2>/dev/null)\" = \"$HOME/Screenshots\" ] && [ \"$(defaults read com.apple.screencapture disable-shadow 2>/dev/null)\" = \"1\" ] && [ \"$(defaults read com.apple.screencapture type 2>/dev/null)\" = \"png\" ]"]

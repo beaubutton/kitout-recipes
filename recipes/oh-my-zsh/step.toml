@@ -1,0 +1,10 @@
+# Install Oh My Zsh unattended into ~/.oh-my-zsh. Downloads and runs Oh My Zsh's
+# official installer. No privilege. The check probes for the framework directory,
+# so plan/status are honest and the script never re-runs the installer.
+# needs: the installer requires git on PATH — if git isn't already present, add
+#        needs = ["<your package step>"] so this runs after it.
+[[step]]
+type = "script"
+id = "oh-my-zsh"
+path = "steps/oh-my-zsh.sh"
+check = ["sh", "-c", "[ -d \"$HOME/.oh-my-zsh\" ]"]
