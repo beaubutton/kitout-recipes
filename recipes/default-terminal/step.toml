@@ -1,0 +1,8 @@
+# Set your terminal as the default handler for shell scripts (public.unix-executable).
+# Requires: brew "duti". Edit APP in the script AND the bundle id in the check to
+# your terminal (e.g. com.mitchellh.ghostty, com.googlecode.iterm2, com.apple.Terminal).
+[[step]]
+type = "script"
+id = "default-terminal"
+path = "steps/default-terminal.sh"
+check = ["sh", "-c", '[ "$(duti -d public.unix-executable 2>/dev/null)" = "com.mitchellh.ghostty" ]']

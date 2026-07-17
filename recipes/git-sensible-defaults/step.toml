@@ -1,0 +1,7 @@
+# Opinionated global git config (init.defaultBranch=main, pull.rebase, prune, …).
+# No privilege, no deps beyond git.
+[[step]]
+type = "script"
+id = "git-sensible-defaults"
+path = "steps/git-sensible-defaults.sh"
+check = ["sh", "-c", '[ "$(git config --global --get rerere.enabled 2>/dev/null)" = "true" ]']

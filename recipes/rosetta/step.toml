@@ -1,0 +1,7 @@
+# Install Rosetta 2 on Apple Silicon. No-op on Intel and when already present.
+# No deps, no sudo.
+[[step]]
+type = "script"
+id = "rosetta"
+path = "steps/rosetta.sh"
+check = ["sh", "-c", '[ "$(uname -m)" != arm64 ] || [ -d /Library/Apple/usr/share/rosetta ]']

@@ -1,0 +1,10 @@
+# Set your default web browser. Requires: brew "defaultbrowser".
+# Edit BROWSER in the script AND the `edge` in the check below to your browser's
+# id (run `defaultbrowser` to list them). GUI-gated: macOS shows a consent dialog
+# no tool can bypass, so this is on-error = warn.
+[[step]]
+type = "script"
+id = "default-browser"
+path = "steps/default-browser.sh"
+check = ["sh", "-c", "defaultbrowser 2>/dev/null | grep -q '^\\* edge$'"]
+on-error = "warn"

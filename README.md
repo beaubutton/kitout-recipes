@@ -26,14 +26,20 @@ note (these are commands that run on your machine).
 
 | Recipe | Does | Step type | Notes |
 |---|---|---|---|
+| [`default-browser`](recipes/default-browser) | Set the default web browser | `script` | needs `defaultbrowser`; GUI-gated |
+| [`default-terminal`](recipes/default-terminal) | Default handler for shell scripts | `script` | needs `duti` |
+| [`rosetta`](recipes/rosetta) | Install Rosetta 2 (Apple Silicon) | `script` | no sudo; no-op on Intel |
+| [`computer-name`](recipes/computer-name) | Set the Mac's name (all 3 fields) | `script` | sudo |
 | [`git-lfs`](recipes/git-lfs) | Enable Git LFS globally | `script` | needs `git-lfs` |
+| [`git-sensible-defaults`](recipes/git-sensible-defaults) | Opinionated global git config | `script` | no privilege |
 | [`touchid-sudo`](recipes/touchid-sudo) | Authenticate `sudo` with Touch ID | `script` | sudo; macOS 14+ |
 | [`finder-power-user`](recipes/finder-power-user) | A sensible Finder preference set | `defaults` | no script |
+| [`modern-cli-aliases`](recipes/modern-cli-aliases) | `ls`→eza, `cat`→bat, `grep`→rg… | `block-in-file` | no script |
 | [`debloat-apple-apps`](recipes/debloat-apple-apps) | Remove bundled iLife apps | `absent` | destructive; kitout ≥ 0.4.0 |
 
-_More landing continuously — this is the reviewed starter set that proves the
-[format](RECIPE-FORMAT.md). Categories on deck: default-app handlers, curated
-`defaults` sets, shell/prompt, git, language runtimes, containers/cloud, SSH/secrets,
+_10 recipes and growing — the reviewed set that proves the [format](RECIPE-FORMAT.md)
+across every step type. Categories still on deck: more default-app handlers, curated
+`defaults` sets, shell/prompt, language runtimes, containers/cloud, SSH/secrets,
 networking, and agent-era config._
 
 ## Contributing

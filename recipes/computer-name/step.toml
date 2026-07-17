@@ -1,0 +1,8 @@
+# Set the Mac's name (ComputerName + HostName + LocalHostName). Needs sudo — set
+# sudo = true in your manifest. Change NAME in the script AND the `my-mac` in the
+# check to a hostname-safe name (letters, digits, hyphens; no spaces).
+[[step]]
+type = "script"
+id = "computer-name"
+path = "steps/computer-name.sh"
+check = ["sh", "-c", '[ "$(scutil --get LocalHostName 2>/dev/null)" = "my-mac" ]']
