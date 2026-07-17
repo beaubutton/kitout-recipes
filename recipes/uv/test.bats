@@ -16,7 +16,7 @@ teardown() { rm -rf "$WORK"; }
   # Exercise the command-if-missing probe logic without installing anything.
   # A binary that's always on PATH must show 0 pending; a bogus one must be pending.
   present_pending() {
-    kitout plan -m "$1" --json | python3 -c 'import sys,json;print(json.load(sys.stdin)["pending"])'
+    kitout plan -m "$1" --json 2>/dev/null | python3 -c 'import sys,json;print(json.load(sys.stdin)["pending"])'
   }
 
   cat >"$WORK/present.toml" <<'TOML'
@@ -50,6 +50,6 @@ TOML
   command -v uv >/dev/null
 
   # idempotent: present now → nothing pending on a second plan
-  run sh -c "kitout plan -m '$MANIFEST' --json | python3 -c 'import sys,json;print(json.load(sys.stdin)[\"pending\"])'"
+  run sh -c "kitout plan -m '$MANIFEST' --json 2>/dev/null | python3 -c 'import sys,json;print(json.load(sys.stdin)[\"pending\"])'"
   [ "$output" = "0" ]
 }
