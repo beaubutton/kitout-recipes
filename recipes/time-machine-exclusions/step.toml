@@ -1,0 +1,18 @@
+# Exclude dev-cruft paths from Time Machine via `tmutil addexclusion`. Edit the
+# PATHS array in time-machine-exclusions.sh AND the matching list in `check` below
+# to add/remove paths — the two must stay in sync. All default paths are
+# user-owned, so no sudo. tmutil needs Full Disk Access for whatever runs it
+# (Terminal/kitout) or it fails silently on some paths — on-error = "warn" so one
+# uncooperative path doesn't fail the whole apply.
+[[step]]
+type = "script"
+id = "time-machine-exclusions"
+path = "steps/time-machine-exclusions.sh"
+on-error = "warn"
+check = ["sh", "-c", '''
+for p in "$HOME/Library/Caches" "$HOME/.cache" "$HOME/Developer/build"; do
+  [ -e "$p" ] || continue
+  tmutil isexcluded "$p" 2>/dev/null | grep -q '^\[Excluded\]' || exit 1
+done
+exit 0
+''']

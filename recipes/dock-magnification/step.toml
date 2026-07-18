@@ -1,0 +1,13 @@
+# Turn on Dock magnification with a comfortable size range. Uses kitout's
+# `defaults` step — no script, no privilege. Distinct from `dock-minimal`
+# (which auto-hides the Dock): this recipe keeps the Dock visible but makes
+# icons grow on hover. The Dock is restarted only if a key actually changed.
+[[step]]
+type = "defaults"
+id = "dock-magnification"
+kill = ["Dock"]
+write = [
+  { domain = "com.apple.dock", key = "magnification", value = true }, # icons grow when the pointer hovers them
+  { domain = "com.apple.dock", key = "largesize",      value = 64 },  # magnified (hover) icon size
+  { domain = "com.apple.dock", key = "tilesize",       value = 48 },  # resting icon size
+]

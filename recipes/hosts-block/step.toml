@@ -1,0 +1,11 @@
+# Manage a marked ad/tracker blocklist region in /etc/hosts. Edit the block
+# in hosts-block.sh to add/remove entries — the script rebuilds the whole
+# region from that list on every run, so it's the single source of truth.
+# Needs sudo — set sudo = true in your manifest (the script writes a SYSTEM
+# file). Override HOSTS_FILE in the environment to point at a different file
+# (tests do this to avoid touching the real /etc/hosts).
+[[step]]
+type = "script"
+id = "hosts-block"
+path = "steps/hosts-block.sh"
+check = ["sh", "-c", "grep -q 'recipes:hosts-block' /etc/hosts"]

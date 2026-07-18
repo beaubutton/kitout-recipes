@@ -1,0 +1,11 @@
+# Install a user-editable list of VS Code extensions idempotently. Edit the
+# EXTS array in vscode-extensions.sh to add/remove extensions.
+# needs: `code` on PATH — add needs = ["<your VS Code install/cask step>"] if
+# VS Code isn't already installed. In VS Code itself: Cmd+Shift+P >
+# "Shell Command: Install 'code' command in PATH".
+[[step]]
+type = "script"
+id = "vscode-extensions"
+path = "steps/vscode-extensions.sh"
+on-error = "warn"
+check = ["sh", "-c", "command -v code"]

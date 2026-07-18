@@ -1,0 +1,12 @@
+# Install rustup — the official Rust toolchain installer/manager — if it's
+# missing. `command-if-missing` probes `rustup` on PATH and, only when absent,
+# runs the installer argv (spawned directly, no shell). This uses Homebrew's
+# `rustup` formula (which installs the `rustup` binary directly and, as of
+# formula 1.29.0, no longer ships a separate `rustup-init`) rather than piping
+# the official `curl … | sh` script to a shell. See README: after install, run
+# `rustup default stable` once to set up an active toolchain.
+[[step]]
+type = "command-if-missing"
+id = "rustup"
+probe = "rustup"
+install = ["brew", "install", "rustup"]

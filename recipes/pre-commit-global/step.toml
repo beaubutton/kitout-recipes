@@ -1,0 +1,12 @@
+# Make every FUTURE `git init`/`git clone` install pre-commit's hooks
+# automatically, via a git template directory. Requires the `pre-commit`
+# tool (brew/pipx) — on-error is "warn" so a missing tool doesn't abort the
+# rest of your manifest. Existing repos still need a one-time
+# `pre-commit install` (see README).
+# needs: if pre-commit isn't already installed, add needs = ["<your pre-commit install step>"].
+[[step]]
+type = "script"
+id = "pre-commit-global"
+path = "steps/pre-commit-global.sh"
+on-error = "warn"
+check = ["sh", "-c", '[ -n "$(git config --global --get init.templateDir 2>/dev/null)" ]']

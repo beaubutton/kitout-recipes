@@ -1,0 +1,18 @@
+# Wire PNPM_HOME and PATH for pnpm's global bin dir via a kitout-managed
+# ~/.zshrc block. Only the region between the markers is managed — the rest of
+# your ~/.zshrc is yours. The PATH line only adds PNPM_HOME if it isn't already
+# on PATH, so re-sourcing (or a login shell that inherits an existing PATH)
+# never duplicates the entry. Requires the `pnpm` binary on PATH (brew "pnpm").
+# needs: if pnpm isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "block-in-file"
+id = "pnpm-home"
+target = "~/.zshrc"
+marker = "recipes:pnpm-home"
+block = '''
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+'''

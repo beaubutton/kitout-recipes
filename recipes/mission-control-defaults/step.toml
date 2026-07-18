@@ -1,0 +1,12 @@
+# Tune Mission Control's Spaces behavior. Uses kitout's `defaults` step — no
+# script, no privilege. `mru-spaces = false` stops macOS re-ordering Spaces by
+# most-recently-used (keeps your Spaces layout stable); `expose-group-apps =
+# true` groups windows by application in the Mission Control / App Exposé view.
+[[step]]
+type = "defaults"
+id = "mission-control-defaults"
+kill = ["Dock"]
+write = [
+  { domain = "com.apple.dock", key = "mru-spaces",         value = false }, # don't reorder Spaces by recent use
+  { domain = "com.apple.dock", key = "expose-group-apps",  value = true },  # group windows by app in Mission Control
+]

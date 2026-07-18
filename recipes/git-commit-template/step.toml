@@ -1,0 +1,7 @@
+# Write ~/.gitmessage (a Conventional-Commits skeleton) and point git at it
+# as the default commit template. No privilege, no packages.
+[[step]]
+type = "script"
+id = "git-commit-template"
+path = "steps/git-commit-template.sh"
+check = ["sh", "-c", '[ -n "$(git config --global --get commit.template 2>/dev/null)" ]']

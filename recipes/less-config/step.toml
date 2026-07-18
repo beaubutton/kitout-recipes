@@ -1,0 +1,12 @@
+# Sensible `less` defaults and no on-disk search history, in a kitout-managed
+# ~/.zshrc block. Only the region between the markers is managed — the rest of
+# your ~/.zshrc is yours. No external tool required; `less` ships with macOS.
+[[step]]
+type = "block-in-file"
+id = "less-config"
+target = "~/.zshrc"
+marker = "recipes:less-config"
+block = '''
+export LESS="-R -F -i -M"
+export LESSHISTFILE=-
+'''

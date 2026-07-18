@@ -1,0 +1,19 @@
+# Seed sane defaults into VS Code's user settings.json via json-merge.
+# mode = "seed": writes each key ONLY if it's absent, so it never clobbers a
+# value you've already set yourself. Edit the `value` table below to add,
+# drop, or change any of the seeded keys.
+#
+# NOTE: VS Code's settings.json uses FLAT dotted keys (e.g. "editor.formatOnSave"
+# is a single literal key, not an `editor` object). The keys below are QUOTED so
+# TOML treats each as one flat string key; an unquoted `editor.formatOnSave` would
+# instead nest as { editor = { formatOnSave = ... } }, which VS Code ignores.
+#
+# needs: VS Code must have been launched at least once (it creates the
+# "Code/User" directory) — add needs = ["<your VS Code install/cask step>"]
+# if VS Code isn't already present.
+[[step]]
+type = "json-merge"
+id = "vscode-settings"
+target = "~/Library/Application Support/Code/User/settings.json"
+mode = "seed"
+value = { "editor.formatOnSave" = true, "files.trimTrailingWhitespace" = true, "files.insertFinalNewline" = true, "editor.rulers" = [80, 100], "telemetry.telemetryLevel" = "off", "workbench.editor.enablePreview" = false }

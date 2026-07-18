@@ -1,0 +1,11 @@
+# Enable three-finger drag (drag windows/content by sweeping three fingers
+# instead of click-and-drag). Uses kitout's `defaults` step — no script, no
+# privilege. Written to both trackpad driver domains so it takes on built-in
+# and Bluetooth trackpads alike.
+[[step]]
+type = "defaults"
+id = "three-finger-drag"
+write = [
+  { domain = "com.apple.AppleMultitouchTrackpad",                  key = "TrackpadThreeFingerDrag", value = true }, # built-in trackpad driver
+  { domain = "com.apple.driver.AppleBluetoothMultitouch.trackpad", key = "TrackpadThreeFingerDrag", value = true }, # Bluetooth trackpad driver
+]

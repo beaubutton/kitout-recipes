@@ -1,0 +1,9 @@
+# Install deno — the sandboxed-by-default JS/TS/WASM runtime — if it's missing.
+# `command-if-missing` probes `deno` on PATH and, only when absent, runs the
+# installer argv (spawned directly, no shell). Swap the installer if you prefer
+# a pinned version or a non-Homebrew source.
+[[step]]
+type = "command-if-missing"
+id = "deno"
+probe = "deno"
+install = ["brew", "install", "deno"]

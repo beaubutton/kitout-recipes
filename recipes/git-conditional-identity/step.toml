@@ -1,0 +1,9 @@
+# Set a personal global git identity, plus a conditional include so any repo
+# under ~/work uses a separate work identity instead. EDIT the placeholder
+# name/email in the script (both the personal identity and ~/.gitconfig-work)
+# before adopting, and change ~/work below if your work tree lives elsewhere.
+[[step]]
+type = "script"
+id = "git-conditional-identity"
+path = "steps/git-conditional-identity.sh"
+check = ["sh", "-c", '[ -n "$(git config --global --get "includeIf.gitdir:~/work/.path" 2>/dev/null)" ]']

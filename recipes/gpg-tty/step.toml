@@ -1,0 +1,12 @@
+# Point GPG's pinentry at the current terminal, in a kitout-managed ~/.zshrc
+# block. Only the region between the markers is managed — the rest of your
+# ~/.zshrc is yours. Requires the `gpg` binary on PATH (brew "gnupg").
+# needs: if gpg isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "block-in-file"
+id = "gpg-tty"
+target = "~/.zshrc"
+marker = "recipes:gpg-tty"
+block = '''
+export GPG_TTY=$(tty)
+'''

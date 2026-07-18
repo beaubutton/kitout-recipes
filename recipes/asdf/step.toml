@@ -1,0 +1,15 @@
+# Activate CURRENT asdf (v0.16+, the Go rewrite from `brew install asdf`) in
+# zsh via a kitout-managed ~/.zshrc block. Only the region between the markers
+# is managed — the rest of your ~/.zshrc is yours. Current asdf activates by
+# putting its shim dir on PATH (no `. asdf.sh` sourcing anymore — see README
+# for the pre-0.16 approach if you're pinned to an older release).
+# Requires the `asdf` binary on PATH (brew "asdf").
+# needs: if asdf isn't already installed, add needs = ["<your package step>"].
+[[step]]
+type = "block-in-file"
+id = "asdf"
+target = "~/.zshrc"
+marker = "recipes:asdf"
+block = '''
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+'''

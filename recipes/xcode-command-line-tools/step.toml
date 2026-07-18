@@ -1,0 +1,10 @@
+# Ensure the Xcode Command Line Tools (compilers, headers, git) are installed.
+# GUI-gated / large download, so on-error = "warn". If softwareupdate = true
+# in your manifest gives sudo, the unattended install path is used; otherwise
+# this falls back to the `xcode-select --install` GUI prompt.
+[[step]]
+type = "script"
+id = "xcode-command-line-tools"
+path = "steps/xcode-command-line-tools.sh"
+on-error = "warn"
+check = ["sh", "-c", "xcode-select -p >/dev/null 2>&1"]
